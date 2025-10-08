@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Boxing Timer — PWA</title>
+
+<!-- PWA manifest -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ff1f1f">
+
+<style>
+:root{--bg:#111;--card:#1d1d1d;--accent:#ff1f1f;--muted:#bbb;}
+body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;background:var(--bg);color:#fff;display:flex;flex-direction:column;align-items:center;padding:20px;height:100vh;overflow-x:hidden;}
+h1{color:var(--accent);margin:6px 0 18px;font-size:1.6rem;text-align:center;}
+button{background:var(--accent);border:none;color:#fff;padding:10px 14px;border-radius:8px;cursor:pointer;font-weight:700;min-height:40px;min-width:40px;}
+.btn-ghost{background:transparent;border:1px solid #333;color:var(--muted);}
+.sets{display:flex;flex-direction:column;gap:12px;max-height:70vh;overflow-y:auto;}
+.set-card{background:linear-gradient(180deg,#171717,#252525);border-radius:10px;padding:10px;border:1px solid #2b2b2b;}
+summary{display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:12px 10px;border-radius:6px;touch-action: manipulation;}
+.set-title{display:flex;gap:10px;align-items:center;}
+.set-title input{background:transparent;border:none;color:#fff;font-weight:700;font-size:1rem;outline:none;width:220px;}
+.meta{font-size:0.9rem;color:var(--muted);}
+.rounds{padding:8px 6px;border-top:1px dashed #2b2b2b;margin-top:8px;display:flex;flex-direction:column;gap:8px;}
+.round-row{display:flex;gap:8px;align-items:center;}
+.round-row input[type="text"]{flex:1;background:transparent;border:1px solid #333;padding:6px;border-radius:6px;color:#fff;font-size:0.95rem;}
+.time-inputs{display:flex;gap:6px;align-items:center;}
+.time-inputs input{width:50px;padding:5px;border-radius:6px;border:1px solid #333;background:#111;color:#fff;text-align:center;font-size:0.95rem;}
+.small-btn{padding:6px 8px;font-size:0.95rem;border-radius:6px;min-width:40px;min-height:36px;}
+.note{color:var(--muted);font-size:0.9rem;margin-top:8px;}
+.timer-view{display:none;flex-direction:column;align-items:center;padding:20px;margin-top:18px;background:linear-gradient(180deg,#120909,#1f0f0f);border-radius:12px;border:1px solid #2b0f0f;}
+.activity{font-size:1.4rem;color:#fff;margin-bottom:6px;}
+.time-big{font-size:4rem;color:var(--accent);font-weight:900;letter-spacing:1px;}
+.small-controls{display:flex;gap:12px;margin-top:12px;}
+.danger{background:#333;border:1px solid #882; color:#fff;}
+@media (max-width:600px){
+  body{padding:12px}
+  h1{font-size:1.4rem}
+  .set-title input{width:120px;font-size:0.95rem}
+  .time-big{font-size:4rem}
+  button,.small-btn{padding:10px 12px;font-size:1rem}
+  .round-row input[type="text"]{font-size:0.95rem;padding:5px}
+  .time-inputs input{width:50px;padding:5px;font-size:0.95rem}
+  .rounds{gap:6px}
+  .set-card{padding:8px}
+}
+@media (orientation: landscape) and (max-width:900px){
+  .time-big{font-size:5rem}
+  .activity{font-size:1.6rem}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <h1>Boxing Timer — PWA</h1>
+  <div class="controls">
+    <button id="addSetBtn">+ Add Set</button>
+    <button id="startBtn">Start Workout (20s count-in)</button>
+    <button id="stopBtn" class="btn-ghost">Stop</button>
+    <div style="flex:1"></div>
+    <div class="meta">Max 5 rounds per set — max 10:00 per round</div>
+  </div>
+  <div class="sets" id="setsContainer"></div>
+  <div class="note">Tip: Use the Start button to initialize speech/audio (required by iOS).</div>
+
+  <div class="timer-view" id="timerView">
+    <div class="activity" id="activityText">Get Ready</div>
+    <div class="time-big" id="timeDisplay">00:00</div>
+    <div class="small-controls">
+      <button id="pauseBtn" class="small-btn btn-ghost">Pause</button>
+      <button id="resumeBtn" class="small-btn btn-ghost" style="display:none">Resume</button>
+      <button id="exitBtn" class="small-btn danger">Exit to Setup</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===== Service Worker Registration ===== */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').then(reg=>{
+      console.log('Service Worker registered:', reg.scope);
+    }).catch(err=>{
+      console.warn('Service Worker registration failed:', err);
+    });
+  });
+}
+
+/* ===== Boxing Timer JS ===== */
+/* Copy all your iPhone-optimized timer, sets, rounds, speech, bell code here */
+</script>
+</body>
+</html>
